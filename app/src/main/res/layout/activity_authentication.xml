@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginHorizontal="60dp"
+        />
+
+    <TextView
+        android:id="@+id/username_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/username_prompt"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/welcome_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="200dp"
+        />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:id="@+id/username_entry"
+        android:textSize="18sp"
+        android:autofillHints="username"
+        app:layout_constraintLeft_toLeftOf="@id/welcome_text"
+        app:layout_constraintRight_toRightOf="@id/welcome_text"
+        app:layout_constraintTop_toBottomOf="@id/username_prompt"
+        android:layout_marginTop="-10dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:contentDescription="Enter username"
+        />
+
+    <TextView
+        android:id="@+id/password_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_prompt"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/username_entry"
+        app:layout_constraintLeft_toLeftOf="@id/username_prompt"
+        app:layout_constraintRight_toRightOf="@id/username_prompt"
+        android:layout_marginTop="20dp"
+        />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:id="@+id/password_entry"
+        android:inputType="textPassword"
+        android:textSize="18sp"
+        android:autofillHints="password"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="@id/username_entry"
+        app:layout_constraintRight_toRightOf="@id/username_entry"
+        app:layout_constraintTop_toBottomOf="@id/password_prompt"
+        android:layout_marginTop="-10dp"
+        android:contentDescription="Enter password"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_button"
+        android:text="@string/submit_button"
+        android:layout_marginHorizontal="100dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@id/password_prompt"
+        app:layout_constraintRight_toRightOf="@id/password_entry"
+        app:layout_constraintTop_toBottomOf="@id/password_entry"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/register_button"
+        android:text="@string/create_account"
+        app:layout_constraintLeft_toLeftOf="@id/login_button"
+        app:layout_constraintRight_toRightOf="@id/login_button"
+        app:layout_constraintTop_toBottomOf="@id/login_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="-40dp"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

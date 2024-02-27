@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">InventoryApp</string>
+    <string name="welcome">Welcome!</string>
+    <string name="submit_button">Log In</string>
+    <string name="username_prompt">Username:</string>
+    <string name="password_prompt">Password:</string>
+    <string name="create_account">Create Account</string>
+    <string name="inventory_name_title">Name</string>
+    <string name="inventory_image_title">Image</string>
+    <string name="inventory_quantity_title">Quantity</string>
+    <string name="inventory_description_title">Description</string>
+    <string name="SMS_notification_terms">The app can send you notifications such as low inventory alerts, upcoming events, or goal achievements via SMS.</string>
+    <string name="enable_notification_button">Enable SMS Notifications</string>
+    <string name="permission_status_not_requested">Permission status: Not Requested</string>
+</resources>
