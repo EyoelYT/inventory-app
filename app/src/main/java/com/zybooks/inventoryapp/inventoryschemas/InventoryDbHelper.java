@@ -11,9 +11,9 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + InventoryTable.TABLE_NAME + " (" +
-                    InventoryTable._ID + " INTEGER PRIMARY KEY," +
+                    InventoryTable._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     InventoryTable.COLUMN_NAME_TITLE + " TEXT," +
-                    InventoryTable.COLUMN_NAME_IMAGE + " INTEGER," +
+                    InventoryTable.COLUMN_NAME_IMAGE + " TEXT," +
                     InventoryTable.COLUMN_NAME_QUANTITY + " INTEGER," +
                     InventoryTable.COLUMN_NAME_DESCRIPTION + " TEXT)";
     private InventoryDbHelper(Context context) {
@@ -22,7 +22,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
 
     public static InventoryDbHelper getInstance(Context context) {
         if (instance == null) {
-            return new InventoryDbHelper(context.getApplicationContext());
+            instance = new InventoryDbHelper(context.getApplicationContext());
         }
             return instance;
     }
@@ -35,7 +35,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
     }
 

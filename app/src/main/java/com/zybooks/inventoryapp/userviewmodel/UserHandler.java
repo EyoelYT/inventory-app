@@ -31,6 +31,8 @@ public class UserHandler {
 
         int userCount = cursor.getCount();
         cursor.close();
+
+        // If there is a user with the same name, return negative
         if (userCount > 0) {return -1;}
         else {
             ContentValues values = new ContentValues();
