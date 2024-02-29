@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddInventoryItemActivity">
+
+
+    <TextView
+        android:id="@+id/name_prompt"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:text="Inventory Name:"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="200dp"
+        android:layout_marginTop="250dp"
+        android:textAlignment="textStart"
+        />
+
+    <TextView
+        android:id="@+id/image_prompt"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:text="Image:"
+        app:layout_constraintLeft_toLeftOf="@+id/name_prompt"
+        app:layout_constraintRight_toRightOf="@+id/name_prompt"
+        app:layout_constraintTop_toBottomOf="@+id/name_prompt"
+        android:layout_marginTop="30dp"
+        android:textAlignment="viewStart"/>
+
+    <TextView
+        android:id="@+id/quantity_prompt"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:text="Quantity:"
+        app:layout_constraintTop_toBottomOf="@id/image_prompt"
+        app:layout_constraintLeft_toLeftOf="@id/image_prompt"
+        app:layout_constraintRight_toRightOf="@id/image_prompt"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/description_prompt"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        app:layout_constraintTop_toBottomOf="@+id/quantity_prompt"
+        app:layout_constraintLeft_toLeftOf="@id/quantity_prompt"
+        app:layout_constraintRight_toRightOf="@id/quantity_prompt"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:id="@+id/name_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintLeft_toRightOf="@+id/name_prompt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name_prompt"
+        app:layout_constraintBottom_toBottomOf="@id/name_prompt"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Item Image"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        app:layout_constraintLeft_toRightOf="@+id/image_prompt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_prompt"
+        app:layout_constraintBottom_toBottomOf="@id/image_prompt"
+        android:layout_marginEnd="155dp"/>
+
+    <EditText
+        android:id="@+id/quantity_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintLeft_toRightOf="@+id/quantity_prompt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/quantity_prompt"
+        app:layout_constraintBottom_toBottomOf="@id/quantity_prompt"/>
+
+    <EditText
+        android:id="@+id/description_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintLeft_toRightOf="@+id/description_prompt"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/description_prompt"
+        app:layout_constraintBottom_toBottomOf="@id/description_prompt"/>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:enabled="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_prompt"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
