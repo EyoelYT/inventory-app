@@ -5,17 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.zybooks.inventoryapp.inventorymodels.Inventory;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.database.Cursor;
 
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.zybooks.inventoryapp.inventoryschemas.InventoryDbHelper;
@@ -38,6 +37,9 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_display);
         setTitle("Inventory");
+
+        MaterialToolbar toolbar = findViewById(R.id.top_app_bar);
+        setSupportActionBar(toolbar);
 
         dbHelper = InventoryDbHelper.getInstance(getApplicationContext());
         inventoryList = new ArrayList<>();
@@ -148,4 +150,22 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
 
         loadInventoryItems();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_app_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_notifications) {
+            // Open the notifications setting activity
+            Intent intent = new Intent(this, NotificationSettingsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

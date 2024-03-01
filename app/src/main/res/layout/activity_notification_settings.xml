@@ -5,6 +5,43 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+
+    <TextView
+        android:id="@+id/phone_number_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone Number:"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        android:layout_marginTop="420dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="300dp"/>
+
+    <EditText
+        android:id="@+id/phone_number_entry"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="phone"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@id/phone_number_prompt"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="400dp"/>
+
+    <Button
+        android:id="@+id/button_save_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Phone Number"
+        android:visibility="gone"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/phone_number_entry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"/>
+
     <TextView
         android:id="@+id/text_permission_explanation"
         android:layout_width="wrap_content"
@@ -13,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="500dp"/>
+        android:layout_marginTop="550dp"/>
 
     <Button
         android:id="@+id/button_request_permission"
@@ -25,7 +62,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"/>
 
-    <!-- Notification Preferences (conditionally displayed based on permission status) -->
     <TextView
         android:id="@+id/text_notification_preferences"
         android:layout_width="wrap_content"
@@ -36,7 +72,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"/>
-
-    <!-- Add more UI elements for selecting specific notification preferences -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

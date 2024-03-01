@@ -12,4 +12,6 @@
     <string name="SMS_notification_terms">Enabling this setting will send you notifications such as low inventory alerts.</string>
     <string name="enable_notification_button">Enable SMS Notifications</string>
     <string name="permission_status_not_requested">Permission status: Not Requested</string>
+    <string name="disable_sms_notifications">Disable SMS Notifications</string>
+    <string name="enable_sms_notifications">Enable SMS Notifications</string>
 </resources>
