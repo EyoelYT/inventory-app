@@ -23,6 +23,7 @@ import android.Manifest;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -111,11 +112,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             enableSmsFeature();
         } else {
-            // If permission is denied, update UI accordingly
-            // UI is updated only in case of denial, not when permissions are not yet requested
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
-                disableSmsFeature();
-            }
+            // Hide SMS feature related UI components if permission is not granted
+            phoneNumberPrompt.setVisibility(View.GONE);
+            phoneNumberEntry.setVisibility(View.GONE);
+            savePhoneNumberButton.setVisibility(View.GONE);
+            requestPermissionButton.setText(getString(R.string.enable_sms_notifications));
         }
     }
 
@@ -127,17 +128,30 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
     private void disableSmsFeature() {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", getPackageName(), null);
-        intent.setData(uri);
-        startActivity(intent);
+        new AlertDialog.Builder(this)
+                .setTitle("Disable SMS Notifications")
+                .setMessage("This will also erase the saved phone number. Continue?")
+                .setPositiveButton("Yes, disable", (dialog, which) -> {
+                    // Clear the saved phone number
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.remove("savedPhoneNumber");
+                    editor.apply();
+                    phoneNumberEntry.setText(""); // Clear the phone number field
 
-        // Update UI
-        phoneNumberPrompt.setVisibility(View.GONE);
-        phoneNumberEntry.setVisibility(View.GONE);
-        savePhoneNumberButton.setVisibility(View.GONE);
-        requestPermissionButton.setText(getString(R.string.enable_sms_notifications));
-    }
+                    // Open the app settings to let the user manually disable the permission
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+
+                    // Update the UI
+                    phoneNumberPrompt.setVisibility(View.GONE);
+                    phoneNumberEntry.setVisibility(View.GONE);
+                    savePhoneNumberButton.setVisibility(View.GONE);
+                    requestPermissionButton.setText(getString(R.string.enable_sms_notifications));
+                })
+                .setNegativeButton("Cancel", null)
+                .show();    }
 
     public void sendSmsForLowInventory() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -198,5 +212,6 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         updateUiBasedOnPermission();
+        phoneNumberEntry.setText(sharedPreferences.getString("savedPhoneNumber", ""));
     }
 }
