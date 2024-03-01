@@ -2,8 +2,119 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     tools:context=".EditInventoryItemActivity">
 
+    <ImageButton
+        android:id="@+id/inventoryImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/inventory_placeholder"
+        android:contentDescription="Inventory Image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="150dp"
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+
+    <TextView
+        android:id="@+id/InventoryNamePrompt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/inventoryImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/editInventoryName"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editInventoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="19sp"
+        app:layout_constraintTop_toBottomOf="@id/inventoryImage"
+        app:layout_constraintStart_toEndOf="@id/InventoryNamePrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/InventoryQuantityPrompt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:textSize="19sp"
+        app:layout_constraintTop_toBottomOf="@id/InventoryNamePrompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/editInventoryQuantity"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editInventoryQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Quantity"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/editInventoryName"
+        app:layout_constraintStart_toEndOf="@id/InventoryQuantityPrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/InventoryDescriptionPrompt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="19sp"
+        app:layout_constraintTop_toBottomOf="@id/InventoryQuantityPrompt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/editInventoryDescription"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/editInventoryDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        app:layout_constraintTop_toBottomOf="@id/editInventoryQuantity"
+        app:layout_constraintStart_toEndOf="@id/InventoryDescriptionPrompt"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/editInventoryDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        app:layout_constraintTop_toBottomOf="@id/btnSave"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnGoBack"
+        android:layout_width="101dp"
+        android:layout_height="wrap_content"
+        android:text="Go Back"
+        app:layout_constraintTop_toBottomOf="@id/btnDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

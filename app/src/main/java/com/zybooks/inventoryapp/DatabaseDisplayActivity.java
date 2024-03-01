@@ -50,7 +50,7 @@ public class DatabaseDisplayActivity extends AppCompatActivity {
             startActivity(editIntent);
         };
 
-        inventoryAdapter = new InventoryAdapter(inventoryList, clickListener);
+        inventoryAdapter = new InventoryAdapter(this.getApplicationContext(), inventoryList, clickListener); // Error here?
 
         loadInventoryItems();
 

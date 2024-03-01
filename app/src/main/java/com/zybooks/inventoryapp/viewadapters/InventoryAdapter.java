@@ -1,5 +1,7 @@
 package com.zybooks.inventoryapp.viewadapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import com.bumptech.glide.Glide;
+import com.zybooks.inventoryapp.EditInventoryItemActivity;
 import com.zybooks.inventoryapp.R;
 import com.zybooks.inventoryapp.inventorymodels.Inventory;
-
-import java.util.List;
 
 public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.InventoryViewHolder> {
 
@@ -25,10 +26,12 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     private List<Inventory> inventoryList;
     private OnRecyclerInventoryClickListner listner;
+    private Context context;
 
-    public InventoryAdapter(List<Inventory> inventoryList, OnRecyclerInventoryClickListner listner) {
+    public InventoryAdapter(Context context, List<Inventory> inventoryList, OnRecyclerInventoryClickListner listner) {
         this.inventoryList = inventoryList;
         this.listner = listner;
+        this.context = context;
     }
 
     // Creates the small empty recycler view activity
@@ -45,7 +48,6 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
         Inventory item = inventoryList.get(position);
 
-        holder.itemView.setOnClickListener(view -> {listner.onRecyclerClick(item);});
         holder.nameTextView.setText(item.getName());
         holder.quantityTextView.setText(String.valueOf(item.getQuantity()));
         holder.descriptionTextView.setText(item.getDescription());
@@ -53,11 +55,24 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         // Set image using Glide
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(Uri.parse(item.getImageUri())) // Make sure to parse the URI
+                    .load(Uri.parse(item.getImageUri()))
                     .into(holder.imageView);
         } else {
-            holder.imageView.setImageResource(R.drawable.inventory_placeholder); // A default placeholder if there's no image
+            holder.imageView.setImageResource(R.drawable.inventory_placeholder);
         }
+
+        holder.itemView.setOnClickListener(view -> {
+            listner.onRecyclerClick(item);
+            // Intent to start EditInventoryItemActivity with item details as extras
+            Intent intent = new Intent(context, EditInventoryItemActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("inventory_id", item.getId());
+            intent.putExtra("inventory_name", item.getName());
+            intent.putExtra("inventory_quantity", item.getQuantity());
+            intent.putExtra("inventory_description", item.getDescription());
+            intent.putExtra("inventory_imageUri", item.getImageUri());
+            context.startActivity(intent);
+        });
     }
 
     @Override
