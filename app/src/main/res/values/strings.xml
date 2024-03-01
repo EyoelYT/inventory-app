@@ -9,7 +9,7 @@
     <string name="inventory_image_title">Image</string>
     <string name="inventory_quantity_title">Quantity</string>
     <string name="inventory_description_title">Description</string>
-    <string name="SMS_notification_terms">The app can send you notifications such as low inventory alerts, upcoming events, or goal achievements via SMS.</string>
+    <string name="SMS_notification_terms">Enabling this setting will send you notifications such as low inventory alerts.</string>
     <string name="enable_notification_button">Enable SMS Notifications</string>
     <string name="permission_status_not_requested">Permission status: Not Requested</string>
 </resources>

@@ -106,6 +106,7 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
 
                 inventoryList.add(item);
             }
+
         } finally {
             // Always close the cursor when you're done reading from it to avoid memory leaks
             cursor.close();
@@ -124,6 +125,7 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
         intent.putExtra("inventory_quantity", inventory.getQuantity());
         intent.putExtra("inventory_description", inventory.getDescription());
         intent.putExtra("inventory_imageUri", inventory.getImageUri());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

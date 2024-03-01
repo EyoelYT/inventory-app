@@ -2,7 +2,7 @@ package com.zybooks.inventoryapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
+import android.os.Handler;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,13 +31,14 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EditInventoryItemActivity extends AppCompatActivity {
-
+    private boolean backButtonPressedOnce = false;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText nameEditText, quantityEditText, descriptionEditText;
     private ImageButton imageButton;
     private Button btnSave, btnDelete, btnGoBack;
     private InventoryDbHelper dbHelper;
     private long inventoryId;
+    private Uri photoURI;
     String imageUri;
 
     @Override
@@ -83,7 +85,7 @@ public class EditInventoryItemActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(v -> deleteInventoryItem());
         btnGoBack.setOnClickListener(v -> finish());
 
-        imageButton.setOnClickListener(this::onChangeImageClicked);
+        imageButton.setOnClickListener(v -> onChangeImageClicked(v));
     }
 
     public void onChangeImageClicked(View view) {
@@ -96,10 +98,11 @@ public class EditInventoryItemActivity extends AppCompatActivity {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the file
+                Log.d("Error", "Error occured while creating file for changing image");
             }
-            // Continue only if the file was successfully created
+            // Continue going to the camera only if the file was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
+                photoURI = FileProvider.getUriForFile(this,
                         "com.zybooks.inventoryapp.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -209,9 +212,31 @@ public class EditInventoryItemActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        if (!backButtonPressedOnce) {
+            backButtonPressedOnce = true;
+            new Handler().postDelayed(() -> backButtonPressedOnce = false, 200); // 200 ms
+            super.onBackPressed();
+        }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            imageUri = photoURI.toString();
+            Glide.with(this).load(photoURI).into(imageButton);
+            btnSave.setEnabled(true);
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        Intent intent = new Intent(this, DatabaseDisplayActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 }
