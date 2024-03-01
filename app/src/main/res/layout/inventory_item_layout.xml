@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/gray_200"
+    android:layout_margin="3dp">
 
     <ImageView
         android:id="@+id/inventory_image"

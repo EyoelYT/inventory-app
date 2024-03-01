@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddInventoryItemActivity extends AppCompatActivity {
+
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_PERMISSIONS = 100;
 
@@ -77,7 +78,7 @@ public class AddInventoryItemActivity extends AppCompatActivity {
         imageButton = (ImageButton) findViewById(R.id.image_button);
         saveButton = findViewById(R.id.save_button);
 
-        // Set up the image button to launch the camera
+        // Image button to launch the camera
         imageButton.setOnClickListener(view -> {
             requestNecessaryPermissions();
         });
@@ -129,36 +130,16 @@ public class AddInventoryItemActivity extends AppCompatActivity {
         }
     }
 
-//    private void launchCamera() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//                // Error occurred while creating the File
-//                Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show();
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                imageUri = FileProvider.getUriForFile(this, "com.zybooks.inventoryapp.fileprovider", photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//            }
-//        }
-//    }
-
     private File createImageFile() throws IOException {
-        // Create an image file name
+        
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",   /* suffix */
-                storageDir      /* directory */
+                imageFileName,
+                ".jpg",  
+                storageDir
         );
-        // Save a file: path for use with ACTION_VIEW intents
         return image;
     }
 
