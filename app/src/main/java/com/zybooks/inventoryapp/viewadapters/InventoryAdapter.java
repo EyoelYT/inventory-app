@@ -54,11 +54,13 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
         // Set image using Glide
         if (item.getImageUri() != null && !item.getImageUri().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(Uri.parse(item.getImageUri()))
-                    .into(holder.imageView);
-        } else {
-            holder.imageView.setImageResource(R.drawable.inventory_placeholder);
+            if (item.getImageUri().equals("placeholder_image")){
+                holder.imageView.setImageResource(R.drawable.inventory_placeholder);
+            } else {
+                Glide.with(holder.itemView.getContext())
+                        .load(Uri.parse(item.getImageUri()))
+                        .into(holder.imageView);
+            }
         }
 
         holder.itemView.setOnClickListener(view -> {

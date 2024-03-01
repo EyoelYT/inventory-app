@@ -135,7 +135,12 @@ public class EditInventoryItemActivity extends AppCompatActivity {
             nameEditText.setText(name);
             quantityEditText.setText(String.valueOf(quantity));
             descriptionEditText.setText(description);
-            Glide.with(this).load(Uri.parse(imageUri)).into(imageButton);
+
+            if (imageUri != null && !imageUri.equals("placeholder_image")) {
+                Glide.with(this).load(Uri.parse(imageUri)).into(imageButton);
+            } else {
+                imageButton.setImageResource(R.drawable.inventory_placeholder);
+            }
 
             cursor.close();
         }
@@ -201,5 +206,12 @@ public class EditInventoryItemActivity extends AppCompatActivity {
         imageUri = image.getAbsolutePath();
         return image;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
 
 }

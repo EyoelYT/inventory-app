@@ -114,7 +114,7 @@ public class AddInventoryItemActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
 
         values.put(InventoryTable.COLUMN_NAME_TITLE, name);
-        values.put(InventoryTable.COLUMN_NAME_IMAGE, imageUri.toString());
+        values.put(InventoryTable.COLUMN_NAME_IMAGE, (imageUri != null) ? imageUri.toString() : "placeholder_image");
         values.put(InventoryTable.COLUMN_NAME_QUANTITY, quantity);
         values.put(InventoryTable.COLUMN_NAME_DESCRIPTION, description);
 
@@ -129,24 +129,24 @@ public class AddInventoryItemActivity extends AppCompatActivity {
         }
     }
 
-    private void launchCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                imageUri = FileProvider.getUriForFile(this, "your.package.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    }
+//    private void launchCamera() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            File photoFile = null;
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//                Toast.makeText(this, "Error creating image file.", Toast.LENGTH_SHORT).show();
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                imageUri = FileProvider.getUriForFile(this, "com.zybooks.inventoryapp.fileprovider", photoFile);
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//            }
+//        }
+//    }
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -193,7 +193,7 @@ public class AddInventoryItemActivity extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
                 if (photoFile != null) {
-                    imageUri = FileProvider.getUriForFile(this, "your.package.fileprovider", photoFile);
+                    imageUri = FileProvider.getUriForFile(this, "com.zybooks.inventoryapp.fileprovider", photoFile);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                     mStartForResult.launch(takePictureIntent);
                 }

@@ -25,11 +25,13 @@ import com.zybooks.inventoryapp.viewadapters.InventoryAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseDisplayActivity extends AppCompatActivity {
+public class DatabaseDisplayActivity extends AppCompatActivity implements InventoryAdapter.OnRecyclerInventoryClickListner {
     private RecyclerView recyclerView;
     private InventoryAdapter inventoryAdapter;
     private List<Inventory> inventoryList;
     private InventoryDbHelper dbHelper;
+    private static final int EDIT_INVENTORY_REQUEST = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class DatabaseDisplayActivity extends AppCompatActivity {
             startActivity(editIntent);
         };
 
-        inventoryAdapter = new InventoryAdapter(this.getApplicationContext(), inventoryList, clickListener); // Error here?
+        inventoryAdapter = new InventoryAdapter(this, inventoryList, this); // Error here?
 
         loadInventoryItems();
 
@@ -96,15 +98,10 @@ public class DatabaseDisplayActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
 
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(InventoryTable._ID));
-
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(InventoryTable.COLUMN_NAME_TITLE));
-
                 String imageUri = cursor.getString(cursor.getColumnIndexOrThrow(InventoryTable.COLUMN_NAME_IMAGE));
-
                 int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(InventoryTable.COLUMN_NAME_QUANTITY));
-
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(InventoryTable.COLUMN_NAME_DESCRIPTION));
-
                 Inventory item = new Inventory(id, name, imageUri, quantity, description);
 
                 inventoryList.add(item);
@@ -116,6 +113,30 @@ public class DatabaseDisplayActivity extends AppCompatActivity {
 
         // Notify the adapter that the data set has changed to refresh the RecyclerView
         inventoryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRecyclerClick(Inventory inventory) {
+        // Intent to start EditInventoryItemActivity with item details as extras
+        Intent intent = new Intent(this, EditInventoryItemActivity.class);
+        intent.putExtra("inventory_id", inventory.getId());
+        intent.putExtra("inventory_name", inventory.getName());
+        intent.putExtra("inventory_quantity", inventory.getQuantity());
+        intent.putExtra("inventory_description", inventory.getDescription());
+        intent.putExtra("inventory_imageUri", inventory.getImageUri());
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_INVENTORY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                // Handle the result if needed
+                loadInventoryItems();
+                inventoryAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
