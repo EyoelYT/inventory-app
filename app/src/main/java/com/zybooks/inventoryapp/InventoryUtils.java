@@ -114,6 +114,4 @@ public class InventoryUtils {
             notificationManager.notify(notificationId, builder.build());
         }
     }
-
-
 }

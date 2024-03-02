@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class InventoryDbHelper extends SQLiteOpenHelper {
+
     public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "Inventory.db";
     private static InventoryDbHelper instance;
@@ -16,6 +17,7 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
                     InventoryTable.COLUMN_NAME_IMAGE + " TEXT," +
                     InventoryTable.COLUMN_NAME_QUANTITY + " INTEGER," +
                     InventoryTable.COLUMN_NAME_DESCRIPTION + " TEXT)";
+
     private InventoryDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -26,8 +28,10 @@ public class InventoryDbHelper extends SQLiteOpenHelper {
         }
             return instance;
     }
+
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + InventoryTable.TABLE_NAME;
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);

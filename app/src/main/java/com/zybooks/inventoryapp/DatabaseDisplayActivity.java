@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseDisplayActivity extends AppCompatActivity implements InventoryAdapter.OnRecyclerInventoryClickListner {
+
     private RecyclerView recyclerView;
     private InventoryAdapter inventoryAdapter;
     private List<Inventory> inventoryList;
@@ -86,14 +87,12 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
         };
 
         // Perform the query to get all items
-        Cursor cursor = db.query(
-                InventoryTable.TABLE_NAME,   // The table to query
-                projection,             // The columns to return
-                null,              // The columns for the WHERE clause
-                null,          // The values for the WHERE clause
-                null,                   // Don't group the rows
-                null,                   // Don't filter by row groups
-                null               // The sort order
+        Cursor cursor = db.query(InventoryTable.TABLE_NAME, projection,
+                null,              
+                null,          
+                null,         
+                null,       
+                null       
         );
 
         try {
@@ -110,7 +109,6 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
             }
 
         } finally {
-            // Always close the cursor when you're done reading from it to avoid memory leaks
             cursor.close();
         }
 
@@ -120,7 +118,7 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
 
     @Override
     public void onRecyclerClick(Inventory inventory) {
-        // Intent to start EditInventoryItemActivity with item details as extras
+        // Start EditInventoryItemActivity with item details as extras
         Intent intent = new Intent(this, EditInventoryItemActivity.class);
         intent.putExtra("inventory_id", inventory.getId());
         intent.putExtra("inventory_name", inventory.getName());
@@ -136,7 +134,6 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_INVENTORY_REQUEST) {
             if (resultCode == RESULT_OK) {
-                // Handle the result if needed
                 loadInventoryItems();
                 inventoryAdapter.notifyDataSetChanged();
             }
@@ -147,7 +144,6 @@ public class DatabaseDisplayActivity extends AppCompatActivity implements Invent
     protected void onResume() {
         super.onResume();
         setTitle("Inventory");
-
         loadInventoryItems();
     }
 
