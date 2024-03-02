@@ -44,7 +44,7 @@
         android:layout_marginTop="-10dp"
         android:inputType="text"
         android:maxLines="1"
-        android:contentDescription="Enter username"
+        android:hint="e.g JohnDoe"
         />
 
     <TextView
@@ -71,7 +71,7 @@
         app:layout_constraintRight_toRightOf="@id/username_entry"
         app:layout_constraintTop_toBottomOf="@id/password_prompt"
         android:layout_marginTop="-10dp"
-        android:contentDescription="Enter password"
+        android:hint="e.g Jv65%1|8\}P"
         />
 
     <Button

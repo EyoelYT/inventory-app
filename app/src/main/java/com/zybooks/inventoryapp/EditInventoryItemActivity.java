@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EditInventoryItemActivity extends AppCompatActivity {
+
     private boolean backButtonPressedOnce = false;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private EditText nameEditText, quantityEditText, descriptionEditText;
@@ -92,7 +93,6 @@ public class EditInventoryItemActivity extends AppCompatActivity {
         // Intent to capture an image or pick from gallery
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create file for the image
             File photoFile = null;
             try {
                 photoFile = createImageFile();
@@ -170,6 +170,10 @@ public class EditInventoryItemActivity extends AppCompatActivity {
 
         if (count > 0) {
             Toast.makeText(this, "Inventory updated", Toast.LENGTH_SHORT).show();
+            // Check and send message for low inventory
+            InventoryUtils.sendSmsForLowInventory(this); // SMS Notifications
+            InventoryUtils.showLowStockNotification(this); // Pop up Notifications
+
         } else {
             Toast.makeText(this, "Update failed", Toast.LENGTH_SHORT).show();
         }
@@ -195,17 +199,14 @@ public class EditInventoryItemActivity extends AppCompatActivity {
     }
 
     private File createImageFile() throws IOException {
-        // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
+                imageFileName, 
+                ".jpg",       
                 storageDir
         );
-
-        // Save a file path for use with ACTION_VIEW intents
         imageUri = image.getAbsolutePath();
         return image;
     }

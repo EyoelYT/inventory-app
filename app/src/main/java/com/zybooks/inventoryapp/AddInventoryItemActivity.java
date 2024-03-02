@@ -126,7 +126,12 @@ public class AddInventoryItemActivity extends AppCompatActivity {
             Toast.makeText(this, "Error saving the inventory item", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Inventory item saved", Toast.LENGTH_SHORT).show();
-            finish(); // Close this activity and go back to the previous one
+
+            // Check and send message for low inventory
+            InventoryUtils.sendSmsForLowInventory(this); // SMS Notification
+            InventoryUtils.showLowStockNotification(this); // Pop up Notifications
+
+            finish();
         }
     }
 

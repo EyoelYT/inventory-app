@@ -112,7 +112,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
             enableSmsFeature();
         } else {
-            // Hide SMS feature related UI components if permission is not granted
+            // Hide SMS feature related UI components if the SMS permission is not granted
             phoneNumberPrompt.setVisibility(View.GONE);
             phoneNumberEntry.setVisibility(View.GONE);
             savePhoneNumberButton.setVisibility(View.GONE);
@@ -144,68 +144,14 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                     intent.setData(uri);
                     startActivity(intent);
 
-                    // Update the UI
+                    // Update UI
                     phoneNumberPrompt.setVisibility(View.GONE);
                     phoneNumberEntry.setVisibility(View.GONE);
                     savePhoneNumberButton.setVisibility(View.GONE);
                     requestPermissionButton.setText(getString(R.string.enable_sms_notifications));
                 })
                 .setNegativeButton("Cancel", null)
-                .show();    }
-
-    public void sendSmsForLowInventory() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            return; // Permission not granted
-        }
-
-        String phoneNumber = phoneNumberEntry.getText().toString();
-        if (TextUtils.isEmpty(phoneNumber)) return; // No number provided
-
-        // Get all inventory names with quantity less than 5
-        List<String> lowStockItems = getLowStockItems();
-
-        // Construct the message
-        String message = "Low stock alert for items: " + TextUtils.join(", ", lowStockItems);
-
-        // Check if there are any low stock items to notify about
-        if (!lowStockItems.isEmpty()) {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        }
-    }
-
-    private List<String> getLowStockItems() {
-        List<String> lowStockItems = new ArrayList<>();
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                InventoryTable.COLUMN_NAME_TITLE // Assuming you have a title column
-        };
-
-        // Filter results WHERE "quantity" < 5
-        String selection = InventoryTable.COLUMN_NAME_QUANTITY + " < ?";
-        String[] selectionArgs = { "5" };
-
-        Cursor cursor = db.query(
-                InventoryTable.TABLE_NAME,   // The table to query
-                projection,             // The columns to return
-                selection,              // The columns for the WHERE clause
-                selectionArgs,          // The values for the WHERE clause
-                null,                   // Don't group the rows
-                null,                   // Don't filter by row groups
-                null               // The sort order
-        );
-
-        while (cursor.moveToNext()) {
-            String itemName = cursor.getString(
-                    cursor.getColumnIndexOrThrow(InventoryTable.COLUMN_NAME_TITLE));
-            lowStockItems.add(itemName);
-        }
-        cursor.close();
-
-        return lowStockItems;
+                .show();
     }
 
     @Override
